@@ -33,54 +33,83 @@ function App() {
     [length, numberAllowed, charAllowed, passGenerator])
 
   const passRef = useRef(null)
-  const copyPasswordToClipboard = useCallback(() => { 
+  const copyPasswordToClipboard = useCallback(() => {
     passRef.current?.select()
     passRef.current?.setSelectionRange(0, 100)
-    window.navigator.clipboard.writeText(pass) 
-  
-},
+    window.navigator.clipboard.writeText(pass)
+
+  },
     [pass])
 
   return (
     <>
-      <h1 className="text-center">Password Generator</h1>
-      <input
-        type="text"
-        value={pass}
-        placeholder='Password'
-        readOnly
-        ref={passRef}
-      />
-      <button
-        className='btn btn-primary'
-        onClick={copyPasswordToClipboard}>
-        Copy</button>
-      <input
-        type="range"
-        min={6}
-        max={100}
-        value={length}
-        onChange={(e) => setLength(e.target.value)}
-      />
-      <label>Length: {length}</label>
-      <label htmlFor='numInput'>Numbers {numberAllowed}</label>
-      <input
-        type="checkbox"
-        defaultChecked={numberAllowed}
-        id='numInput'
-        onChange={() =>
-          setnumberAllowed((prev) => !prev)
-        }
-      />
-      <label htmlFor='charInput'>Characters {charAllowed}</label>
-      <input
-        type="checkbox"
-        defaultChecked={charAllowed}
-        id='charInput'
-        onChange={() =>
-          setcharAllowed((prev) => !prev)
-        }
-      />
+      <div className="row justify-content-center text-white">
+        <div className="col-md-6 bg-secondary rounded py-5 my-5">
+          <h3 className="text-center my-3">Password Generator</h3>
+          <div className="row justify-content-center">
+            <div className="col-6">
+              <input
+                type="text"
+                value={pass}
+                placeholder='Password'
+                readOnly
+                ref={passRef}
+                className='m-2 p-1 form-control'
+              />
+              </div>
+            <div className="col-7 text-center">
+              <button
+                className='btn btn-primary'
+                onClick={copyPasswordToClipboard}>
+                Copy</button>
+            </div>
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-6">
+              <input
+                type="range"
+                min={6}
+                max={100}
+                value={length}
+                className='form-range'
+                onChange={(e) => setLength(e.target.value)}
+              />
+              <label className='form-label'>Length: {length}</label>
+              <br />
+              <div class="form-check">
+                <label
+                  htmlFor='numInput'
+                  className='form-check-label'>
+                  Numbers {numberAllowed}</label>
+                <input
+                  type="checkbox"
+                  defaultChecked={numberAllowed}
+                  className='form-check-input'
+                  id='numInput'
+                  onChange={() =>
+                    setnumberAllowed((prev) => !prev)
+                  }
+                />
+              </div>
+              <div class="form-check">
+                <label
+                  htmlFor='charInput'
+                  className='form-check-label'
+                >Characters {charAllowed}</label>
+                <input
+                  type="checkbox"
+                  defaultChecked={charAllowed}
+                  id='charInput'
+                  className='form-check-input'
+                  onChange={() =>
+                    setcharAllowed((prev) => !prev)
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
